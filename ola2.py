@@ -23,21 +23,28 @@ TARGET_COL = 'count'
 
 # --- Data Loading and Model Training (Cached) ---
 
+import pandas as pd
+import streamlit as st
+
 @st.cache_data
-def load_data(file_path):
+def load_data(file_path: str):
     """
     Loads the dataset using a relative path.
-    FIX: This corrects the FileNotFoundError when deployed.
+    FIX: Ensures correct behavior both locally and when deployed (Streamlit Cloud).
     """
     try:
-        # Use the relative file_path provided ('ola.csv')
         df = pd.read_csv(file_path)
         return df
+
     except FileNotFoundError:
-        st.error(f"Error: Data file not found at {file_path}. Please ensure 'ola.csv' is in your GitHub repository's root directory.")
+        st.error(
+            f"FileNotFoundError: Could not find `{file_path}`.\n"
+            "Make sure `ola.csv` is located in the root directory of your project repository."
+        )
         return None
+
     except Exception as e:
-        st.error(f"An error occurred during data loading: {e}")
+        st.error(f"An unexpected error occurred while loading the data: {e}")
         return None
 
 @st.cache_resource
@@ -194,3 +201,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
