@@ -30,7 +30,7 @@ import streamlit as st
 def load_data(file_path: str):
     """
     Loads the dataset using a relative path.
-    FIX: Ensures correct behavior both locally and when deployed (Streamlit Cloud).
+    
     """
     try:
         df = pd.read_csv(file_path)
@@ -75,14 +75,10 @@ def preprocess_and_train_model(df):
     X_test_scaled = scaler.transform(X_test)
 
     # 5. Model Training (Lasso Regression)
-    lasso_model = Lasso(alpha=0.01) # Use a suitable alpha or hyperparameter tune
+    lasso_model = Lasso(alpha=0.01) 
     lasso_model.fit(X_train_scaled, Y_train)
 
-    # Optional: Display training MAE
-    y_pred = lasso_model.predict(X_test_scaled)
-    test_mae = mae(Y_test, y_pred)
-    st.sidebar.success(f"Model Trained Test MAE: {test_mae:.4f}")
-
+    
     return lasso_model, scaler
 
 # --- Streamlit Application Layout ---
@@ -201,4 +197,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
