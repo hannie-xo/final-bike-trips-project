@@ -25,13 +25,16 @@ TARGET_COL = 'count'
 
 @st.cache_data
 def load_data(file_path):
-    """Loads the dataset."""
+    """
+    Loads the dataset using a relative path.
+    FIX: This corrects the FileNotFoundError when deployed.
+    """
     try:
-        # Assuming 'ola.csv' is the file name
-        df = pd.read_csv("C:/Users/User/OneDrive/Documents/ola.csv")
+        # Use the relative file_path provided ('ola.csv')
+        df = pd.read_csv(file_path)
         return df
     except FileNotFoundError:
-        st.error(f"Error: Data file not found at {file_path}. Please check the path and file name.")
+        st.error(f"Error: Data file not found at {file_path}. Please ensure 'ola.csv' is in your GitHub repository's root directory.")
         return None
     except Exception as e:
         st.error(f"An error occurred during data loading: {e}")
@@ -189,4 +192,5 @@ def main():
         )
 
 if __name__ == "__main__":
+
     main()
