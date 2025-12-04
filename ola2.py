@@ -187,7 +187,7 @@ def main():
                     This is the predicted number of total bike rentals (casual + registered) for the hour.
                 </p>
                 <p style='font-size: 14px; color: #000;'>
-                    Based on the optimized Lasso Regression model (MAE ~50-52).
+                    Based on the optimized Lasso Regression model (MAE ~50.6814).
                 </p>
             </div>
             """,
@@ -197,5 +197,6 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
